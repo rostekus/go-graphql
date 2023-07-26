@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "github.com/rostekus/go-graphql";
+
+
+package proto;
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+}
+
+message GetUserRequest {
+  string userId = 1;
+}
+
+message UserResponse {
+  string id = 1;
+  string username = 2;
+  string password = 3;
+}
+

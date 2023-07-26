@@ -48,7 +48,11 @@ func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: User - user"))
+	usr, err := r.UserService.Get(id)
+	if err != nil {
+		return nil, fmt.Errorf("couldn't retrive user")
+	}
+	return usr, nil
 }
 
 // Posts is the resolver for the posts field.
