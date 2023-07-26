@@ -9,7 +9,6 @@ import (
 	"fmt"
 
 	"github.com/rostekus/go-graphql/graph/model"
-	"github.com/rostekus/go-graphql/utils"
 )
 
 // CreateUser is the resolver for the createUser field.
@@ -49,9 +48,10 @@ func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
-	usr := utils.GetUser()
-	fmt.Printf("user : %s", usr.Password)
-
+	usr, err := r.UserService.Get(id)
+	if err != nil {
+		return nil, fmt.Errorf("couldn't retrive user")
+	}
 	return usr, nil
 }
 
