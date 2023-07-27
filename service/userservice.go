@@ -5,7 +5,6 @@ import (
 
 	"github.com/rostekus/go-graphql/database"
 	"github.com/rostekus/go-graphql/graph/model"
-	// Import the generated protobuf package
 )
 
 type IUserService interface {
@@ -13,7 +12,7 @@ type IUserService interface {
 }
 
 type UserService struct {
-	Db database.IDatabase
+	Db database.IUserDatabase
 }
 
 func (src *UserService) Get(id string) (*model.User, error) {
