@@ -7,16 +7,16 @@ import (
 	"github.com/rostekus/go-graphql/graph/model"
 )
 
-type IUserService interface {
-	Get(id string) (*model.User, error)
+type IPostService interface {
+	Get(id string) (*model.Post, error)
 }
 
-type UserService struct {
-	Db database.IUserDatabase
+type PostService struct {
+	Db database.IPostDatabase
 }
 
-func (src *UserService) Get(id string) (*model.User, error) {
-	usr, err := src.Db.GetUser(id)
+func (src *PostService) Get(id string) (*model.Post, error) {
+	usr, err := src.Db.GetPost(id)
 
 	if err != nil {
 		return nil, fmt.Errorf("couldn't retrieve from db: %v", err)

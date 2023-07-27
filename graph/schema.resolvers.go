@@ -62,7 +62,11 @@ func (r *queryResolver) Posts(ctx context.Context) ([]*model.Post, error) {
 
 // Post is the resolver for the post field.
 func (r *queryResolver) Post(ctx context.Context, id string) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: Post - post"))
+	post, err := r.PostService.Get(id)
+	if err != nil {
+		return nil, fmt.Errorf("couldn't retrive post")
+	}
+	return post, nil
 }
 
 // Mutation returns MutationResolver implementation.

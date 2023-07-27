@@ -19,9 +19,18 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
+
 	db := database.NewUserDB("localhost:5000")
 	userService := service.UserService{Db: db}
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{UserService: &userService}}))
+
+	redisDB, err := database.NewRedisDB("localhost:6379", "mysecurepassword", 0)
+	if err != nil {
+		log.Fatal("cannot connect to redis")
+	}
+	postService := service.PostService{
+		Db: redisDB,
+	}
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{UserService: &userService, PostService: &postService}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
