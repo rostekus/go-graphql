@@ -8,4 +8,5 @@ import "github.com/rostekus/go-graphql/service"
 
 type Resolver struct {
 	UserService service.IUserService
+	PostService service.IPostService
 }
